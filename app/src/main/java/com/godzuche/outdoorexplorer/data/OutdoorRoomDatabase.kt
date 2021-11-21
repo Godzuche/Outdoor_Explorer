@@ -1,4 +1,4 @@
-package com.psdemo.outdoorexplorer.data
+package com.godzuche.outdoorexplorer.data
 
 import android.content.Context
 import androidx.room.Database

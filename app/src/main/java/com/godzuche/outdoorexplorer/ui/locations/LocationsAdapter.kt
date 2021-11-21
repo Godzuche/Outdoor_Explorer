@@ -1,11 +1,11 @@
-package com.psdemo.outdoorexplorer.ui.locations
+package com.godzuche.outdoorexplorer.ui.locations
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.psdemo.outdoorexplorer.R
-import com.psdemo.outdoorexplorer.data.Location
+import com.godzuche.outdoorexplorer.R
+import com.godzuche.outdoorexplorer.data.Location
 import kotlinx.android.synthetic.main.location_item.view.*
 
 class LocationsAdapter(private val onClickListener: OnClickListener) :

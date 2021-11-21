@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/navigation_activities"
-        android:name="com.psdemo.outdoorexplorer.ui.activities.ActivitiesFragment"
+        android:name="com.godzuche.outdoorexplorer.ui.activities.ActivitiesFragment"
         android:label="@string/title_activities"
         tools:layout="@layout/fragment_activities">
         <action
@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/navigation_locations"
-        android:name="com.psdemo.outdoorexplorer.ui.locations.LocationsFragment"
+        android:name="com.godzuche.outdoorexplorer.ui.locations.LocationsFragment"
         android:label="{title}"
         tools:layout="@layout/fragment_locations">
         <action
@@ -44,7 +44,7 @@
 
     <fragment
         android:id="@+id/navigation_map"
-        android:name="com.psdemo.outdoorexplorer.ui.map.MapFragment"
+        android:name="com.godzuche.outdoorexplorer.ui.map.MapFragment"
         android:label="@string/title_map"
         tools:layout="@layout/fragment_map">
         <action
@@ -58,7 +58,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_location"
-        android:name="com.psdemo.outdoorexplorer.ui.location.LocationFragment"
+        android:name="com.godzuche.outdoorexplorer.ui.location.LocationFragment"
         android:label="@string/title_location"
         tools:layout="@layout/fragment_location">
         <argument

@@ -1,4 +1,4 @@
-package com.psdemo.outdoorexplorer.ui.locations
+package com.godzuche.outdoorexplorer.ui.locations
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import com.psdemo.outdoorexplorer.R
+import com.godzuche.outdoorexplorer.R
 import kotlinx.android.synthetic.main.fragment_locations.*
 
 class LocationsFragment : Fragment(), LocationsAdapter.OnClickListener {

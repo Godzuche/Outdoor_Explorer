@@ -1,4 +1,4 @@
-package com.psdemo.outdoorexplorer
+package com.godzuche.outdoorexplorer
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

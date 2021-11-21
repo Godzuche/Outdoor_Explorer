@@ -1,10 +1,10 @@
-package com.psdemo.outdoorexplorer.ui.location
+package com.godzuche.outdoorexplorer.ui.location
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import com.psdemo.outdoorexplorer.data.OutdoorRepository
-import com.psdemo.outdoorexplorer.data.OutdoorRoomDatabase
-import com.psdemo.outdoorexplorer.data.OutdoorRoomRepository
+import com.godzuche.outdoorexplorer.data.OutdoorRepository
+import com.godzuche.outdoorexplorer.data.OutdoorRoomDatabase
+import com.godzuche.outdoorexplorer.data.OutdoorRoomRepository
 
 class LocationViewModel(application: Application) : AndroidViewModel(application) {
     private val outdoorRepository: OutdoorRepository

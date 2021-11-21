@@ -1,4 +1,4 @@
-package com.psdemo.outdoorexplorer.ui.map
+package com.godzuche.outdoorexplorer.ui.map
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.psdemo.outdoorexplorer.R
+import com.godzuche.outdoorexplorer.R
 
 class MapFragment : Fragment() {
 

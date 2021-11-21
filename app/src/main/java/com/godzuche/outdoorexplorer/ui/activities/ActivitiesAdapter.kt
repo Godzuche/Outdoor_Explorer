@@ -1,4 +1,4 @@
-package com.psdemo.outdoorexplorer.ui.activities
+package com.godzuche.outdoorexplorer.ui.activities
 
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.psdemo.outdoorexplorer.R
-import com.psdemo.outdoorexplorer.data.Activity
+import com.godzuche.outdoorexplorer.R
+import com.godzuche.outdoorexplorer.data.Activity
 import kotlinx.android.synthetic.main.activity_item.view.*
 
 class ActivitiesAdapter(private val onClickListener: OnClickListener) :

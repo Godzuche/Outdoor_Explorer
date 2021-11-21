@@ -1,4 +1,4 @@
-package com.psdemo.outdoorexplorer.data
+package com.godzuche.outdoorexplorer.data
 
 import android.os.AsyncTask
 import com.google.android.gms.location.Geofence
