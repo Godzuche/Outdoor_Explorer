@@ -8,33 +8,41 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.godzuche.outdoorexplorer.R
-import kotlinx.android.synthetic.main.fragment_location.*
+import com.godzuche.outdoorexplorer.databinding.FragmentLocationBinding
 
 class LocationFragment : Fragment() {
+    private var _binding: FragmentLocationBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View =
-        inflater.inflate(R.layout.fragment_location, container, false)
-
+    ): View {
+        _binding = FragmentLocationBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val locationViewModel = ViewModelProvider(this)
-            .get(LocationViewModel::class.java)
+        val locationViewModel = ViewModelProvider(this)[LocationViewModel::class.java]
 
         arguments?.let { bundle ->
             val passedArguments = LocationFragmentArgs.fromBundle(bundle)
             locationViewModel.getLocation(passedArguments.locationId)
                 .observe(viewLifecycleOwner, Observer { wrapper ->
                     val location = wrapper.location
-                    title.text = location.title
-                    hours.text = location.hours
-                    description.text = location.description
+                    binding.title.text = location.title
+                    binding.hours.text = location.hours
+                    binding.description.text = location.description
                     val adapter = ActivitiesAdapter()
-                    listActivities.adapter = adapter
+                    binding.listActivities.adapter = adapter
                     adapter.setActivities(wrapper.activities.sortedBy { a -> a.title })
                 })
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

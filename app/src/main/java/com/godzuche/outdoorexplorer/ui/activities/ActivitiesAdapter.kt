@@ -4,12 +4,15 @@ import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.godzuche.outdoorexplorer.R
 import com.godzuche.outdoorexplorer.data.Activity
-import kotlinx.android.synthetic.main.activity_item.view.*
+import com.google.android.material.card.MaterialCardView
 
 class ActivitiesAdapter(private val onClickListener: OnClickListener) :
     RecyclerView.Adapter<ActivitiesAdapter.ActivityHolder>() {
@@ -37,12 +40,13 @@ class ActivitiesAdapter(private val onClickListener: OnClickListener) :
     inner class ActivityHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(activity: Activity, clickListener: OnClickListener) {
             with(itemView) {
-                title.text = activity.title
+                itemView.findViewById<TextView>(R.id.title).text = activity.title
 
-                card.setOnClickListener {
+                itemView.findViewById<CardView>(R.id.card).setOnClickListener {
                     clickListener.onClick(activity.activityId, activity.title)
                 }
-                geofence.setOnClickListener { clickListener.onGeofenceClick(activity.activityId) }
+                itemView.findViewById<ImageView>(R.id.geofence)
+                    .setOnClickListener { clickListener.onGeofenceClick(activity.activityId) }
 
                 var color = R.color.colorGray
                 if (activity.geofenceEnabled) {
@@ -51,10 +55,10 @@ class ActivitiesAdapter(private val onClickListener: OnClickListener) :
 
                 ImageViewCompat
                     .setImageTintList(
-                        geofence,
+                        itemView.findViewById<ImageView>(R.id.geofence),
                         ColorStateList.valueOf(
                             ContextCompat.getColor(
-                                geofence.context,
+                                itemView.findViewById<ImageView>(R.id.geofence).context,
                                 color
                             )
                         )
@@ -65,8 +69,8 @@ class ActivitiesAdapter(private val onClickListener: OnClickListener) :
                     context.resources.getIdentifier(
                         iconUri, null, context.packageName
                     )
-                icon.setImageResource(imageResource)
-                icon.contentDescription = activity.title
+                itemView.findViewById<ImageView>(R.id.icon).setImageResource(imageResource)
+                itemView.findViewById<ImageView>(R.id.icon).contentDescription = activity.title
             }
         }
     }

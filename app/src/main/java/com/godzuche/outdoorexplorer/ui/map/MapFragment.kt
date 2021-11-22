@@ -18,8 +18,7 @@ class MapFragment : Fragment() {
         inflater.inflate(R.layout.fragment_map, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val mapViewModel = ViewModelProvider(this)
-            .get(MapViewModel::class.java)
+        val mapViewModel = ViewModelProvider(this)[MapViewModel::class.java]
 
     }
 

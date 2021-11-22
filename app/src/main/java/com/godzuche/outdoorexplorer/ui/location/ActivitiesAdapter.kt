@@ -3,10 +3,11 @@ package com.godzuche.outdoorexplorer.ui.location
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.godzuche.outdoorexplorer.R
 import com.godzuche.outdoorexplorer.data.Activity
-import kotlinx.android.synthetic.main.location_activity_item.view.*
 
 class ActivitiesAdapter :
     RecyclerView.Adapter<ActivitiesAdapter.ActivityHolder>() {
@@ -34,15 +35,15 @@ class ActivitiesAdapter :
     inner class ActivityHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(activity: Activity) {
             with(itemView) {
-                title.text = activity.title
+                itemView.findViewById<TextView>(R.id.title).text = activity.title
 
                 val iconUri = "drawable/ic_${activity.icon}_black_24dp"
                 val imageResource: Int =
                     context.resources.getIdentifier(
                         iconUri, null, context.packageName
                     )
-                icon.setImageResource(imageResource)
-                icon.contentDescription = activity.title
+                itemView.findViewById<ImageView>(R.id.icon).setImageResource(imageResource)
+                itemView.findViewById<ImageView>(R.id.icon).contentDescription = activity.title
             }
         }
     }

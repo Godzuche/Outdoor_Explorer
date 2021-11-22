@@ -3,10 +3,13 @@ package com.godzuche.outdoorexplorer.ui.locations
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.godzuche.outdoorexplorer.R
 import com.godzuche.outdoorexplorer.data.Location
-import kotlinx.android.synthetic.main.location_item.view.*
+import com.google.android.material.card.MaterialCardView
 
 class LocationsAdapter(private val onClickListener: OnClickListener) :
     RecyclerView.Adapter<LocationsAdapter.LocationHolder>() {
@@ -41,14 +44,14 @@ class LocationsAdapter(private val onClickListener: OnClickListener) :
     inner class LocationHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(location: Location, clickListener: OnClickListener) {
             with(itemView) {
-                title.text = location.title
-                card.setOnClickListener { clickListener.onClick(location.locationId) }
+                itemView.findViewById<TextView>(R.id.title).text = location.title
+                itemView.findViewById<CardView>(R.id.card).setOnClickListener { clickListener.onClick(location.locationId) }
 
                 if (currentLocation != null) {
-                    distanceIcon.visibility = View.VISIBLE
+                    itemView.findViewById<ImageView>(R.id.distanceIcon).visibility = View.VISIBLE
 
-                    distance.visibility = View.VISIBLE
-                    distance.text = context.getString(
+                    itemView.findViewById<TextView>(R.id.distance).visibility = View.VISIBLE
+                    itemView.findViewById<TextView>(R.id.distance).text = context.getString(
                         R.string.distance_value,
                         location.getDistanceInMiles(currentLocation!!)
                     )

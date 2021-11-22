@@ -9,24 +9,29 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.godzuche.outdoorexplorer.R
-import kotlinx.android.synthetic.main.fragment_locations.*
+import com.godzuche.outdoorexplorer.databinding.FragmentLocationBinding
+import com.godzuche.outdoorexplorer.databinding.FragmentLocationsBinding
 
 class LocationsFragment : Fragment(), LocationsAdapter.OnClickListener {
+    private var _binding: FragmentLocationsBinding? = null
+    private val binding get() = _binding!!
     private lateinit var adapter: LocationsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View =
-        inflater.inflate(R.layout.fragment_locations, container, false)
+    ): View {
+        _binding = FragmentLocationsBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val locationsViewModel = ViewModelProvider(this)
-            .get(LocationsViewModel::class.java)
+        val locationsViewModel = ViewModelProvider(this)[LocationsViewModel::class.java]
 
         adapter = LocationsAdapter(this)
-        listLocations.adapter = adapter
+        binding.listLocations.adapter = adapter
 
         arguments?.let { bundle ->
             val passedArguments = LocationsFragmentArgs.fromBundle(bundle)
@@ -49,5 +54,10 @@ class LocationsFragment : Fragment(), LocationsAdapter.OnClickListener {
         action.locationId = id
         val navController = Navigation.findNavController(requireView())
         navController.navigate(action)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
