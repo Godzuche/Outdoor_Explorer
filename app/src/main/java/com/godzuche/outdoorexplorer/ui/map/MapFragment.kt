@@ -1,15 +1,24 @@
 package com.godzuche.outdoorexplorer.ui.map
 
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import com.godzuche.outdoorexplorer.R
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
@@ -18,7 +27,7 @@ class MapFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? =
         inflater.inflate(R.layout.fragment_map, container, false)
 
@@ -47,38 +56,57 @@ class MapFragment : Fragment() {
             mapViewModel.allLocations.observe(viewLifecycleOwner, Observer { locations ->
                 for (location in locations) {
                     val point = LatLng(location.latitude, location.longitude)
-                    map.addMarker(MarkerOptions()
+                    val marker = map.addMarker(MarkerOptions()
                         .position(point)
                         .title(location.title)
+                        //updating the snippet
+                        .snippet("Hours: ${location.hours}")
+                        //change marker icon. It requires a bitmap resource
+                        .icon(getBitmapFromVector(R.drawable.ic_star_black_24dp,
+                            R.color.colorAccent)
+                        )
+                        //opacity of the icon
+                        .alpha(0.75F)
                     )
+                    //set marker tag for id since markers don't have a unique id
+                    marker?.tag = location.locationId
                 }
             })
+
+            //set click listener on the infoWindow
+            map.setOnInfoWindowClickListener { marker ->
+                val action = MapFragmentDirections.actionNavigationMapToNavigationLocation()
+                action.locationId = marker.tag as Int
+                val navController = Navigation.findNavController(requireView())
+                navController.navigate(action)
+            }
         }
     }
 
-//    private fun getBitmapFromVector(
-//        @DrawableRes vectorResourceId: Int,
-//        @ColorRes colorResourceId: Int
-//    ): BitmapDescriptor {
-//        val vectorDrawable = resources.getDrawable(vectorResourceId, requireContext().theme)
-//            ?: return BitmapDescriptorFactory.defaultMarker()
-//
-//        val bitmap = Bitmap.createBitmap(
-//            vectorDrawable.intrinsicWidth,
-//            vectorDrawable.intrinsicHeight,
-//            Bitmap.Config.ARGB_8888
-//        )
-//
-//        val canvas = Canvas(bitmap)
-//        vectorDrawable.setBounds(0, 0, canvas.width, canvas.height)
-//        DrawableCompat.setTint(
-//            vectorDrawable,
-//            ResourcesCompat.getColor(
-//                resources,
-//                colorResourceId, requireContext().theme
-//            )
-//        )
-//        vectorDrawable.draw(canvas)
-//        return BitmapDescriptorFactory.fromBitmap(bitmap)
-//    }
+    //method for converting vector to bitmap
+    private fun getBitmapFromVector(
+        @DrawableRes vectorResourceId: Int,
+        @ColorRes colorResourceId: Int,
+    ): BitmapDescriptor {
+        val vectorDrawable = resources.getDrawable(vectorResourceId, requireContext().theme)
+            ?: return BitmapDescriptorFactory.defaultMarker()
+
+        val bitmap = Bitmap.createBitmap(
+            vectorDrawable.intrinsicWidth,
+            vectorDrawable.intrinsicHeight,
+            Bitmap.Config.ARGB_8888
+        )
+
+        val canvas = Canvas(bitmap)
+        vectorDrawable.setBounds(0, 0, canvas.width, canvas.height)
+        DrawableCompat.setTint(
+            vectorDrawable,
+            ResourcesCompat.getColor(
+                resources,
+                colorResourceId, requireContext().theme
+            )
+        )
+        vectorDrawable.draw(canvas)
+        return BitmapDescriptorFactory.fromBitmap(bitmap)
+    }
 }
