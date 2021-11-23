@@ -37,6 +37,11 @@ class MapFragment : Fragment() {
             map.moveCamera(CameraUpdateFactory.newLatLng(bay))
 
             //update the map's ui settings
+            map.uiSettings.apply {
+                //zoom control buttons
+                isZoomControlsEnabled = true
+                isTiltGesturesEnabled = false
+            }
 
             //setting markers to the available locations from the viewModel
             mapViewModel.allLocations.observe(viewLifecycleOwner, Observer { locations ->
