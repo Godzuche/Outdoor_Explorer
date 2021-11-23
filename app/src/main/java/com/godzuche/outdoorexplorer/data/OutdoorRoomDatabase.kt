@@ -49,9 +49,12 @@ abstract class OutdoorRoomDatabase : RoomDatabase() {
         }
 
         private fun prepopulateDb(context: Context, db: OutdoorRoomDatabase) {
+            //create an instance of GsonBuilder()
             val gson = GsonBuilder().create()
+            //get jsonFileString
             var data = getJsonDataFromAsset(context, "activities.json")
 
+            //The "fromJson()" method deserializes the specified Json into an object of the specified class
             db.outdoorDao()
                 .insertActivities(gson.fromJson(data, Array<Activity>::class.java).toList())
 

@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.godzuche.outdoorexplorer.R
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 
 class MapFragment : Fragment() {
 
@@ -28,10 +30,24 @@ class MapFragment : Fragment() {
         val maps = childFragmentManager.findFragmentById(R.id.maps) as SupportMapFragment
         maps.getMapAsync { map ->
             //lat and lng of San Francisco
-            //we set the bay to San Francisco because all of our locations are within San Fran
+            //we center the map to San Francisco since all of our locations are within San Fransisco
             val bay = LatLng(37.747063, -122.329030)
+            //zoom level
             map.moveCamera(CameraUpdateFactory.zoomTo(10f))
             map.moveCamera(CameraUpdateFactory.newLatLng(bay))
+
+            //update the map's ui settings
+
+            //setting markers to the available locations from the viewModel
+            mapViewModel.allLocations.observe(viewLifecycleOwner, Observer { locations ->
+                for (location in locations) {
+                    val point = LatLng(location.latitude, location.longitude)
+                    map.addMarker(MarkerOptions()
+                        .position(point)
+                        .title(location.title)
+                    )
+                }
+            })
         }
     }
 
