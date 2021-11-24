@@ -9,4 +9,6 @@
     <string name="distance">Distance</string>
     <string name="distance_value">%1$.2f mi</string>
     <string name="ok">OK</string>
+    <string name="locations_snackbar">Show distance to locations?</string>
+    <string name="locations_rationale">This App uses your location to show you the recreation opportunities near your current location. This data is not stored or shared</string>
 </resources>
