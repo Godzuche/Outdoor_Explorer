@@ -145,7 +145,7 @@ val locationPermissionRequest =
                 }*/
                 else -> {
                     //access to location is prohibited
-                    MaterialAlertDialogBuilder(requireActivity())
+                    MaterialAlertDialogBuilder(requireContext())
                         .setMessage(getString(R.string.locations_rationale))
                         .setPositiveButton("Ok", null) /*{_,_ ->
                             locationPermissionRequest.launch(android.Manifest.permission.ACCESS_FINE_LOCATION)
