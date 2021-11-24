@@ -81,7 +81,6 @@ class LocationsFragment : Fragment(), LocationsAdapter.OnClickListener {
                         android.Manifest.permission.ACCESS_FINE_LOCATION)*/
 
                     MaterialAlertDialogBuilder(requireContext())
-//                        .setTitle("Delete Account")
                         .setMessage(getString(R.string.locations_rationale))
                         .setPositiveButton("Ok") {_,_ ->
                             locationPermissionRequest.launch(Manifest.permission.ACCESS_FINE_LOCATION)
@@ -147,7 +146,6 @@ val locationPermissionRequest =
                 else -> {
                     //access to location is prohibited
                     MaterialAlertDialogBuilder(requireActivity())
-//                        .setTitle("Delete Account")
                         .setMessage(getString(R.string.locations_rationale))
                         .setPositiveButton("Ok", null) /*{_,_ ->
                             locationPermissionRequest.launch(android.Manifest.permission.ACCESS_FINE_LOCATION)
