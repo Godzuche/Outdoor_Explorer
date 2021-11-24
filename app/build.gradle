@@ -71,4 +71,7 @@ dependencies {
 
     //google map
     implementation 'com.google.android.gms:play-services-maps:18.0.0'
+
+    // Easy Permissions Library
+    implementation 'pub.devrel.easypermissions:3.0.0'
 }
