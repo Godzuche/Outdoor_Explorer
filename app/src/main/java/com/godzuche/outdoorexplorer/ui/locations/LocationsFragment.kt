@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.location.LocationManagerCompat.getCurrentLocation
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -59,38 +60,8 @@ class LocationsFragment : Fragment(), LocationsAdapter.OnClickListener {
             }
         }
 
-//        getCurrentLocation()
+        getCurrentLocation()
 
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            val fusedLocationProviderClient =
-                LocationServices.getFusedLocationProviderClient(requireActivity())
-
-            //rather than driving directions, the last location will do for our use case
-            fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
-                if (location != null) {
-                    adapter.setCurrentLocation(location)
-                }
-            }
-        } else if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
-            Snackbar.make(requireView(),
-                getString(R.string.locations_snackbar),
-                Snackbar.LENGTH_INDEFINITE)
-                .setAction(R.string.ok) {
-                    /*EasyPermissions.requestPermissions(this, getString(R.string.locations_rationale),
-                        RC_LOCATION,
-                        android.Manifest.permission.ACCESS_FINE_LOCATION)*/
-
-                    MaterialAlertDialogBuilder(requireContext())
-                        .setMessage(getString(R.string.locations_rationale))
-                        .setPositiveButton("Ok") {_,_ ->
-                            locationPermissionRequest.launch(Manifest.permission.ACCESS_FINE_LOCATION)
-                        }
-                        .setNegativeButton("No Thanks", null)
-                        .show()
-                }.show()
-        } else {
-            locationPermissionRequest.launch(Manifest.permission.ACCESS_FINE_LOCATION)
-        }
     }
 
    /* @SuppressLint("MissingPermission")
@@ -123,6 +94,42 @@ class LocationsFragment : Fragment(), LocationsAdapter.OnClickListener {
         }
     }*/
 
+    private fun getCurrentLocation() {
+        when {
+            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED -> {
+                val fusedLocationProviderClient =
+                    LocationServices.getFusedLocationProviderClient(requireActivity())
+
+                //rather than driving directions, the last location will do for our use case
+                fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
+                    if (location != null) {
+                        adapter.setCurrentLocation(location)
+                    }
+                }
+            }
+            shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {
+                Snackbar.make(requireView(),
+                    getString(R.string.locations_snackbar),
+                    Snackbar.LENGTH_INDEFINITE)
+                    .setAction(R.string.ok) {
+                        /*EasyPermissions.requestPermissions(this, getString(R.string.locations_rationale),
+                            RC_LOCATION,
+                            android.Manifest.permission.ACCESS_FINE_LOCATION)*/
+
+                        MaterialAlertDialogBuilder(requireContext())
+                            .setMessage(getString(R.string.locations_rationale))
+                            .setPositiveButton("Ok") {_,_ ->
+                                locationPermissionRequest.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+                            }
+                            .setNegativeButton("No Thanks", null)
+                            .show()
+                    }.show()
+            }
+            else -> {
+                locationPermissionRequest.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+            }
+        }
+    }
 
 @SuppressLint("MissingPermission")
 val locationPermissionRequest =

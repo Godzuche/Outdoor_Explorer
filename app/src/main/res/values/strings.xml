@@ -10,5 +10,7 @@
     <string name="distance_value">%1$.2f mi</string>
     <string name="ok">OK</string>
     <string name="locations_snackbar">Show distance to locations?</string>
-    <string name="locations_rationale">This App uses your location to show you the recreation opportunities near your current location. This data is not stored or shared</string>
+    <string name="locations_rationale">We need access to your location to show you the recreation opportunities near your current location. This data is not stored or shared</string>
+    <string name="map_rationale">We need access to your location to show your location relative to recreation opportunities near you. This data is not stored or shared.</string>
+    <string name="map_snackbar">Show your location on the map?</string>
 </resources>
