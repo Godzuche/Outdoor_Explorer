@@ -19,14 +19,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import com.godzuche.outdoorexplorer.BuildConfig
 import com.godzuche.outdoorexplorer.R
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptor
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 
@@ -81,6 +79,17 @@ class MapFragment : Fragment() {
                     )
                     //set marker tag for id since markers don't have a unique id
                     marker?.tag = location.locationId
+
+                    //add a circle to rep the edges of the geofencing for all the markers
+                    //run this in only testing (debug mode)
+                    if (BuildConfig.DEBUG){
+                        map.addCircle(
+                            CircleOptions()
+                                .center(point)
+                                .radius(location.geofenceRadius.toDouble())
+
+                        )
+                    }
                 }
             })
 

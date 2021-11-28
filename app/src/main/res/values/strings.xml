@@ -18,4 +18,7 @@
     <string name="activities_background_snackbar">Allow location when not in use to show nearby activities?</string>
     <string name="activities_background_rationale">Using the locations nearby functionality requires background access to your device\'s location</string>
     <string name="activities_background_reminder">We use your location even when this app is closed to share nearby activities</string>
+    <string name="notification_channel">Nearby Locations</string>
+    <string name="notification_title">Outdoor Explorer</string>
+    <string name="notification_message">Discover the outdoors near you now! Visit %1$s to enjoy your favorite activities</string>
 </resources>
